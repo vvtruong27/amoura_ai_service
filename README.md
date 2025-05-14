@@ -1,51 +1,51 @@
 # Amoura AI Service
 
-Đây là module backend AI Service cho ứng dụng hẹn hò trực tuyến Amoura. Module này được xây dựng bằng FastAPI và chịu trách nhiệm cung cấp các API cho các tính năng dựa trên Trí tuệ Nhân tạo (AI) của ứng dụng, bao gồm:
+This is the backend AI Service module for the Amoura online dating application. This module is built with FastAPI and is responsible for providing APIs for the application's Artificial Intelligence (AI) based features, including:
 
-*   **AI Hỗ trợ ghép đôi (E2):** Đề xuất đối tượng phù hợp, hiển thị điểm chung.
-*   **AI Phân tích hành vi giao tiếp (E3):** Phân tích cảm xúc tin nhắn, gợi ý trò chuyện.
-*   **AI Kiểm duyệt nội dung & An toàn người dùng (E4):** Lọc tin nhắn tục tĩu, kiểm tra tên hợp lệ.
+*   **AI Matching Support (E2):** Suggest suitable matches, display common interests.
+*   **AI Communication Behavior Analysis (E3):** Analyze message sentiment, suggest conversation topics.
+*   **AI Content Moderation & User Safety (E4):** Filter inappropriate messages, validate user names.
 
-Module này được thiết kế để hoạt động độc lập hoặc như một microservice, tương tác với backend chính của ứng dụng Amoura.
+This module is designed to operate independently or as a microservice, interacting with the main backend of the Amoura application.
 
-## 📂 Cấu trúc thư mục
+## 📂 Directory Structure
 
 ```text
 amoura_ai_service/
-├── app/                                # Mã nguồn chính của ứng dụng FastAPI
+├── app/                                # Main source code of the FastAPI application
 │   ├── __init__.py
-│   ├── api/                            # Các router API
+│   ├── api/                            # API routers
 │   │   ├── __init__.py
-│   │   └── v1/                         # Version 1 của API
+│   │   └── v1/                         # Version 1 of the API
 │   │       ├── __init__.py
-│   │       ├── endpoints/              # Các file chứa endpoints cụ thể
+│   │       ├── endpoints/              # Files containing specific endpoints
 │   │       │   ├── __init__.py
 │   │       │   ├── ai_matching.py
 │   │       │   ├── ai_communication.py
 │   │       │   └── ai_moderation.py
-│   │       └── api.py                  # Tổng hợp các router của v1
-│   ├── core/                           # Cấu hình, settings, hằng số
+│   │       └── api.py                  # Aggregation of v1 routers
+│   ├── core/                           # Configuration, settings, constants
 │   │   ├── __init__.py
-│   │   └── config.py                   # Cài đặt ứng dụng
-│   ├── models/                         # Pydantic models cho request/response
+│   │   └── config.py                   # Application settings
+│   ├── models/                         # Pydantic models for request/response
 │   │   ├── __init__.py
 │   │   ├── common.py
 │   │   ├── matching.py
 │   │   ├── communication.py
 │   │   └── moderation.py
-│   ├── services/                       # Logic nghiệp vụ AI
+│   ├── services/                       # AI business logic
 │   │   ├── __init__.py
 │   │   ├── matching_service.py
 │   │   ├── communication_analysis_service.py
 │   │   └── content_moderation_service.py
-│   ├── utils/                          # Các hàm tiện ích
-│   │   ├── __init__.py
-│   └── main.py                       # File khởi tạo ứng dụng FastAPI
+│   ├── utils/                          # Utility functions
+│   │   └── __init__.py
+│   └── main.py                         # FastAPI application initialization file
 │
-├── tests/                              # Thư mục chứa tests
+├── tests/                              # Tests directory
 │   ├── __init__.py
-│   ├── conftest.py                   # Fixtures cho Pytest
-│   └── test_api/                     # Tests cho API endpoints
+│   ├── conftest.py                     # Fixtures for Pytest
+│   └── test_api/                       # Tests for API endpoints
 │       ├── __init__.py
 │       └── v1/
 │           ├── __init__.py
@@ -53,19 +53,19 @@ amoura_ai_service/
 │           ├── test_ai_communication.py
 │           └── test_ai_moderation.py
 │
-├── .env                              # Biến môi trường (local, bị ignore)
-├── .env.example                      # File mẫu cho .env
-├── .gitignore                        # Các file/folder bỏ qua khi commit
-├── README.md                         # Mô tả, hướng dẫn dự án
-└── requirements.txt                  # Danh sách các thư viện Python
+├── .env                                # Environment variables (local, ignored)
+├── .env.example                        # Template file for .env
+├── .gitignore                          # Files/folders to ignore when committing
+├── README.md                           # Project description and instructions
+└── requirements.txt                    # List of Python libraries
 ```
-## 📋 Điều kiện tiên quyết
+## 📋 Prerequisites
 
 *   Python 3.12+
 *   Pip (Python package installer)
 *   Git
 
-## 🚀 Bắt đầu
+## 🚀 Getting Started
 
 ### 1. Clone Repository
 
@@ -73,65 +73,65 @@ amoura_ai_service/
 git clone https://github.com/vvtruong27/amoura_ai_service
 cd amoura_ai_service
 ```
-### 2. Tạo và Kích hoạt Môi trường Ảo (Virtual Environment)
+### 2. Create and Activate Virtual Environment
 
-Nên sử dụng môi trường ảo để quản lý các gói phụ thuộc của dự án.
+It's recommended to use a virtual environment to manage project dependencies.
 
-**Đối với Windows:**
+**For Windows:**
 
 ```bash
 python -m venv .venv
 .\.venv\Scripts\activate
 ```
 
-**Đối với macOS/Linux:**
+**For macOS/Linux:**
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-Sau khi kích hoạt, bạn sẽ thấy (.venv) ở đầu dòng lệnh.
+After activation, you'll see (.venv) at the beginning of the command line.
 
-### 3. Cài đặt Các Gói Phụ thuộc
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-File requirements.txt chứa danh sách tất cả các thư viện Python cần thiết cho dự án.
+The requirements.txt file contains a list of all Python libraries needed for the project.
 
-### 4. Cấu hình Biến Môi trường
+### 4. Configure Environment Variables
 
 ```bash
 cp .env.example .env
 ```
 
-Mở file .env và cập nhật các giá trị cần thiết (ví dụ: API keys cho các dịch vụ AI bên thứ ba nếu có, đường dẫn tới model, ...).
+Open the .env file and update the necessary values (e.g., API keys for third-party AI services if any, paths to models, etc.).
 
-### 5. Chạy Ứng dụng (Development)
+### 5. Run the Application (Development)
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-*   **app.main:app:** Trỏ tới instance app của FastAPI trong file app/main.py.
-*   **--reload:** Tự động tải lại server khi có thay đổi trong code (chỉ dùng cho development).
+*   **app.main:app:** Points to the FastAPI app instance in the app/main.py file.
+*   **--reload:** Automatically reloads the server when code changes (only for development).
 
-Sau khi server khởi động, bạn có thể truy cập ứng dụng tại: http://localhost:8000
+After the server starts, you can access the application at: http://localhost:8000
 
-## 📖 Tài liệu API (Swagger UI & ReDoc)
+## 📖 API Documentation (Swagger UI & ReDoc)
 
-FastAPI tự động tạo tài liệu API tương tác. Sau khi ứng dụng đang chạy, bạn có thể truy cập:
+FastAPI automatically generates interactive API documentation. Once the application is running, you can access:
 
-Swagger UI: http://localhost:8000/docs
-ReDoc: http://localhost:8000/redoc
+* **Swagger UI**: http://localhost:8000/docs
+* **ReDoc:** http://localhost:8000/redoc
 
-Tại đây, bạn có thể xem tất cả các endpoint, schema request/response và thử nghiệm API trực tiếp.
+Here, you can view all endpoints, request/response schemas, and test the API directly.
 
-## 🧪 Chạy Tests
+## 🧪 Running Tests
 
-Dự án sử dụng pytest để kiểm thử. Để chạy tất cả các test:
+The project uses pytest for testing. To run all tests:
 
 ```bash
 pytest

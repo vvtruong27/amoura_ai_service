@@ -58,7 +58,7 @@ amoura_ai_service/
 ├── .gitignore                        # Các file/folder bỏ qua khi commit
 ├── README.md                         # Mô tả, hướng dẫn dự án
 └── requirements.txt                  # Danh sách các thư viện Python
-
+```
 ## 📋 Điều kiện tiên quyết
 
 *   Python 3.12+
@@ -70,5 +70,69 @@ amoura_ai_service/
 ### 1. Clone Repository
 
 ```bash
-git clone <URL_repository_cua_ban>
+git clone https://github.com/vvtruong27/amoura_ai_service
 cd amoura_ai_service
+```
+### 2. Tạo và Kích hoạt Môi trường Ảo (Virtual Environment)
+
+Nên sử dụng môi trường ảo để quản lý các gói phụ thuộc của dự án.
+
+**Đối với Windows:**
+
+```bash
+python -m venv .venv
+.\.venv\Scripts\activate
+```
+
+**Đối với macOS/Linux:**
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Sau khi kích hoạt, bạn sẽ thấy (.venv) ở đầu dòng lệnh.
+
+### 3. Cài đặt Các Gói Phụ thuộc
+
+```bash
+pip install -r requirements.txt
+```
+
+File requirements.txt chứa danh sách tất cả các thư viện Python cần thiết cho dự án.
+
+### 4. Cấu hình Biến Môi trường
+
+```bash
+cp .env.example .env
+```
+
+Mở file .env và cập nhật các giá trị cần thiết (ví dụ: API keys cho các dịch vụ AI bên thứ ba nếu có, đường dẫn tới model, ...).
+
+### 5. Chạy Ứng dụng (Development)
+
+```bash
+uvicorn app.main:app --reload
+```
+
+*   **app.main:app:** Trỏ tới instance app của FastAPI trong file app/main.py.
+*   **--reload:** Tự động tải lại server khi có thay đổi trong code (chỉ dùng cho development).
+
+Sau khi server khởi động, bạn có thể truy cập ứng dụng tại: http://localhost:8000
+
+## 📖 Tài liệu API (Swagger UI & ReDoc)
+
+FastAPI tự động tạo tài liệu API tương tác. Sau khi ứng dụng đang chạy, bạn có thể truy cập:
+
+Swagger UI: http://localhost:8000/docs
+ReDoc: http://localhost:8000/redoc
+
+Tại đây, bạn có thể xem tất cả các endpoint, schema request/response và thử nghiệm API trực tiếp.
+
+## 🧪 Chạy Tests
+
+Dự án sử dụng pytest để kiểm thử. Để chạy tất cả các test:
+
+```bash
+pytest
+```

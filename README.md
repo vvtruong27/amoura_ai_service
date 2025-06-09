@@ -14,38 +14,57 @@ This module is designed to operate independently or as a microservice, interacti
 amoura_ai_service/
 ├── app/                                # Main source code of the FastAPI application
 │   ├── __init__.py
+│   ├── ai_models/                      # Machine learning models and preprocessors
+│   │   ├── __init__.py
+│   │   ├── model_loader.py
+│   │   └── ml_models/
+│   │       ├── best_model_summary.json
+│   │       ├── best_overall_model.joblib
+│   │       └── preprocessors/          # Feature transformers and encoders
+│   │
 │   ├── api/                            # API routers
 │   │   ├── __init__.py
-│   │   └── v1/                         # Version 1 of the API
+│   │   └── v1/
 │   │       ├── __init__.py
-│   │       ├── endpoints/              # Files containing specific endpoints
-│   │       │   ├── __init__.py
-│   │       │   ├── ai_matching.py
-│   │       │   ├── ai_communication.py
-│   │       │   └── ai_moderation.py
-│   │       └── api.py                  # Aggregation of v1 routers
-│   ├── core/                           # Configuration, settings, constants
+│   │       ├── api.py                  # Aggregation of v1 routers
+│   │       └── endpoints/              # Endpoint route handlers
+│   │           ├── __init__.py
+│   │           ├── ai_matching.py
+│   │           ├── ai_communication.py
+│   │           └── ai_moderation.py
+│   │
+│   ├── core/                           # Configuration and settings
 │   │   ├── __init__.py
-│   │   └── config.py                   # Application settings
+│   │   └── config.py
+│   │
+│   ├── db/                             # Database utilities and session setup
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── base_class.py
+│   │   └── session.py
+│   │
 │   ├── models/                         # Pydantic models for request/response
 │   │   ├── __init__.py
 │   │   ├── common.py
-│   │   ├── matching.py
 │   │   ├── communication.py
+│   │   ├── db_models.py
+│   │   ├── matching.py
 │   │   └── moderation.py
-│   ├── services/                       # AI business logic
+│   │
+│   ├── services/                       # Core logic and orchestration layer
 │   │   ├── __init__.py
-│   │   ├── matching_service.py
 │   │   ├── communication_analysis_service.py
-│   │   └── content_moderation_service.py
-│   ├── utils/                          # Utility functions
-│   │   └── __init__.py
-│   └── main.py                         # FastAPI application initialization file
+│   │   ├── content_moderation_service.py
+│   │   ├── feature_engineering_service.py
+│   │   └── matching_service.py
+│   │
+│   └── utils/                          # Shared utility functions
+│       ├── __init__.py
+│       └── main.py                     # Entry point for FastAPI app
 │
-├── tests/                              # Tests directory
+├── test/                               # Unit and integration tests
 │   ├── __init__.py
-│   ├── conftest.py                     # Fixtures for Pytest
-│   └── test_api/                       # Tests for API endpoints
+│   └── test_api/
 │       ├── __init__.py
 │       └── v1/
 │           ├── __init__.py
@@ -53,11 +72,12 @@ amoura_ai_service/
 │           ├── test_ai_communication.py
 │           └── test_ai_moderation.py
 │
-├── .env                                # Environment variables (local, ignored)
-├── .env.example                        # Template file for .env
-├── .gitignore                          # Files/folders to ignore when committing
+├── .env                                # Environment variables (local use)
+├── .env.example                        # Template environment config
+├── .gitignore                          # Git ignore rules
 ├── README.md                           # Project description and instructions
-└── requirements.txt                    # List of Python libraries
+└── requirements.txt                    # List of Python dependencies
+
 ```
 ## 📋 Prerequisites
 

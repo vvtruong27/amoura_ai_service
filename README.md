@@ -2,9 +2,9 @@
 
 This is the backend AI Service module for the Amoura online dating application. This module is built with FastAPI and is responsible for providing APIs for the application's Artificial Intelligence (AI) based features, including:
 
-*   **AI Matching Support (E2):** Suggest suitable matches, display common interests.
-*   **AI Communication Behavior Analysis (E3):** Analyze message sentiment, suggest conversation topics.
-*   **AI Content Moderation & User Safety (E4):** Filter inappropriate messages, validate user names.
+*   **AI Matching Support:** Suggest suitable matches, display common interests.
+*   **AI Communication Behavior Analysis:** Analyze message sentiment, suggest conversation topics.
+*   **AI Content Moderation & User Safety (E4):** Filter inappropriate user names, uploads photos.
 
 This module is designed to operate independently or as a microservice, interacting with the main backend of the Amoura application.
 
@@ -14,24 +14,16 @@ This module is designed to operate independently or as a microservice, interacti
 amoura_ai_service/
 ├── app/                                # Main source code of the FastAPI application
 │   ├── __init__.py
-│   ├── ai_models/                      # Machine learning models and preprocessors
-│   │   ├── __init__.py
-│   │   ├── model_loader.py
-│   │   └── ml_models/
-│   │       ├── best_model_summary.json
-│   │       ├── best_overall_model.joblib
-│   │       └── preprocessors/          # Feature transformers and encoders
-│   │
-│   ├── api/                            # API routers
+│   ├── main.py                         # Entry point for FastAPI app
+│   ├── dependencies.py                 # Shared dependencies and utilities
+│   ├── api/                            # API routers and endpoints
 │   │   ├── __init__.py
 │   │   └── v1/
 │   │       ├── __init__.py
 │   │       ├── api.py                  # Aggregation of v1 routers
 │   │       └── endpoints/              # Endpoint route handlers
 │   │           ├── __init__.py
-│   │           ├── ai_matching.py
-│   │           ├── ai_communication.py
-│   │           └── ai_moderation.py
+│   │           └── matches.py          # Match-related endpoints
 │   │
 │   ├── core/                           # Configuration and settings
 │   │   ├── __init__.py
@@ -39,38 +31,31 @@ amoura_ai_service/
 │   │
 │   ├── db/                             # Database utilities and session setup
 │   │   ├── __init__.py
-│   │   ├── base.py
-│   │   ├── base_class.py
-│   │   └── session.py
+│   │   ├── base.py                     # Base database configuration
+│   │   ├── crud.py                     # CRUD operations
+│   │   ├── models.py                   # SQLAlchemy models
+│   │   └── session.py                  # Database session management
 │   │
-│   ├── models/                         # Pydantic models for request/response
+│   ├── ml/                             # Machine learning models and utilities
 │   │   ├── __init__.py
-│   │   ├── common.py
-│   │   ├── communication.py
-│   │   ├── db_models.py
-│   │   ├── matching.py
-│   │   └── moderation.py
+│   │   ├── predictor.py               # ML model prediction logic
+│   │   └── preprocessing.py           # Data preprocessing utilities
 │   │
-│   ├── services/                       # Core logic and orchestration layer
+│   ├── schemas/                        # Pydantic models for request/response
 │   │   ├── __init__.py
-│   │   ├── communication_analysis_service.py
-│   │   ├── content_moderation_service.py
-│   │   ├── feature_engineering_service.py
-│   │   └── matching_service.py
+│   │   ├── match.py                   # Match-related schemas
+│   │   └── user.py                    # User-related schemas
 │   │
-│   └── utils/                          # Shared utility functions
+│   └── services/                       # Core logic and orchestration layer
 │       ├── __init__.py
-│       └── main.py                     # Entry point for FastAPI app
+│       └── match_service.py           # Match service implementation
+│
+├── ml_models/                          # Trained ML models storage
+│   ├── best_model_summary.json        # Summary of model performance metrics and configuration
+│   └── best_overall_model.joblib      # The main trained matching model
 │
 ├── test/                               # Unit and integration tests
-│   ├── __init__.py
-│   └── test_api/
-│       ├── __init__.py
-│       └── v1/
-│           ├── __init__.py
-│           ├── test_ai_matching.py
-│           ├── test_ai_communication.py
-│           └── test_ai_moderation.py
+│   └── __init__.py
 │
 ├── .env                                # Environment variables (local use)
 ├── .env.example                        # Template environment config
